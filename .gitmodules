@@ -1,0 +1,12 @@
+[submodule "vf-ui"]
+	path = vf-ui
+	url = git@github.com:valueflows/vf-ui
+[submodule "vf-graphql"]
+	path = vf-graphql
+	url = git@github.com:valueflows/vf-graphql.git
+[submodule "holo-rea"]
+	path = holo-rea
+	url = git@github.com:holo-rea/holo-rea.git
+[submodule "ecosystem-wiki"]
+	path = ecosystem-wiki
+	url = git@github.com:holo-rea/ecosystem.wiki.git
