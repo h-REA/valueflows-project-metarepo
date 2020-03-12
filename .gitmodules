@@ -10,3 +10,9 @@
 [submodule "ecosystem-wiki"]
 	path = ecosystem-wiki
 	url = git@github.com:holo-rea/ecosystem.wiki.git
+[submodule "happ-agent-registration"]
+	path = happ-agent-registration
+	url = git@github.com:holochain-open-dev/agent-registration.git
+[submodule "happ-social-triangulation"]
+	path = happ-social-triangulation
+	url = git@github.com:holochain-open-dev/social-triangulation.git
