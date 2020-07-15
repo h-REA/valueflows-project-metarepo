@@ -10,3 +10,6 @@
 [submodule "ecosystem-wiki"]
 	path = ecosystem-wiki
 	url = git@github.com:holo-rea/ecosystem.wiki.git
+[submodule "app-offers-needs-marketplace"]
+	path = app-offers-needs-marketplace
+	url = git@github.com:holo-rea/app-offers-needs-marketplace.git
