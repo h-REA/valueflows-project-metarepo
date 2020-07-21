@@ -13,8 +13,6 @@
 HAS_NIX=$(command -v nix-shell >/dev/null 2>&1)
 HAS_NIX=$?
 
-NPM=$(which npm)
-
 bold=$(tput bold)
 normal=$(tput sgr0)
 
@@ -53,8 +51,9 @@ status_line "Setup Holo-REA..."
 pushd holo-rea
   git checkout sprout
 
-  # ensure PNPM is installed in the nix env
-  nix-shell --run 'sudo $NPM i -g pnpm'
+  # :SHONK: ensure PNPM is installed in the nix env
+  # :TODO: extend Holonix config correctly
+  nix-shell --run 'sudo npm i -g pnpm'
 
   # setup dependencies
   nix-shell --run 'pnpm i'
