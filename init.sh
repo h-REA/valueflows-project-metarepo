@@ -96,6 +96,23 @@ popd
 
 
 
+# cross-link local modules
+
+status_line "Link cross-repo dependencies..."
+
+pushd holo-rea/modules/vf-graphql-holochain/build
+  nix-shell --run 'pnpm link ../../../../vf-graphql/lib' ../../../default.nix
+popd
+
+pushd app-offers-needs-marketplace/src/graphql-client
+  nix-shell --run 'pnpm link ../../../holo-rea/modules/vf-graphql-holochain/build' ../../../holo-rea/default.nix
+popd
+
+pushd app-personal-agent/
+  nix-shell --run 'pnpm link ../app-offers-needs-marketplace/src/graphql-client' ../holo-rea/default.nix
+popd
+
+
 
 
 status_line "Finished installing. Continuing to build Holo-REA; if you don't need this please CTRL-C..."
