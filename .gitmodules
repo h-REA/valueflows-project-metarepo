@@ -13,3 +13,6 @@
 [submodule "app-offers-needs-marketplace"]
 	path = app-offers-needs-marketplace
 	url = git@github.com:holo-rea/app-offers-needs-marketplace.git
+[submodule "app-personal-agent"]
+	path = app-personal-agent
+	url = git@github.com:holo-rea/app-personal-agent.git
