@@ -110,6 +110,7 @@ popd
 
 pushd app-personal-agent/
   nix-shell --run 'pnpm link ../app-offers-needs-marketplace/src/graphql-client' ../holo-rea/default.nix
+  nix-shell --run 'pnpm link ../app-offers-needs-marketplace/node_modules/.pnpm/graphql@14.7.0/node_modules/graphql' ../holo-rea/default.nix
 popd
 
 
