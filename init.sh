@@ -13,6 +13,8 @@
 HAS_NIX=$(command -v nix-shell >/dev/null 2>&1)
 HAS_NIX=$?
 
+NPM=$(which npm)
+
 bold=$(tput bold)
 normal=$(tput sgr0)
 
@@ -42,39 +44,60 @@ pushd ecosystem-wiki
   git checkout master
 popd
 
+
+
+
 # Configure HoloREA first, all commands will be run within its Nix environment
+#
+status_line "Setup Holo-REA..."
 pushd holo-rea
-  git checkout master
+  git checkout sprout
 
-  status_line "Setup HoloREA packages..."
+  # ensure PNPM is installed in the nix env
+  nix-shell --run 'sudo $NPM i -g pnpm'
 
-  # wiring between vf-graphql-holochain and holo-rea/examples is handled by
-  # yarn within holo-rea codebase
-
-  nix-shell --run 'yarn'
+  # setup dependencies
+  nix-shell --run 'pnpm i'
+  # build node modules but leave backend unbuilt until end (some devs may be mocking)
+  nix-shell --run 'npm run build:graphql-adapter'
 popd
+
+
+
 
 # build & register locally developed NPM modules
 
 status_line "Setup vf-graphql..."
 pushd vf-graphql
-  git checkout master
-  nix-shell --run 'yarn' ../holo-rea/default.nix
+  git checkout sprout
+  nix-shell --run 'pnpm i' ../holo-rea/default.nix
   nix-shell --run 'npm run build' ../holo-rea/default.nix
-  pushd lib
-    nix-shell --run 'NPM=$(which npm); sudo $NPM link' ../../holo-rea/default.nix
-  popd
 popd
 
 status_line "Setup vf-ui..."
 pushd vf-ui
-  git checkout master
-  nix-shell --run 'NPM=$(which npm); sudo $NPM link' ../holo-rea/default.nix
+  git checkout sprout
+  nix-shell --run 'pnpm i' ../holo-rea/default.nix
 popd
 
-# wire local NPM modules into dependants
+status_line "Setup apps..."
 
-status_line "Setup vf-graphql-holochain..."
-pushd holo-rea/modules/vf-graphql-holochain
-  nix-shell --run 'npm link @valueflows/vf-graphql' ../../default.nix
+pushd app-offers-needs-marketplace/
+  git checkout sprout
+  nix-shell --run 'pnpm i' ../holo-rea/default.nix
+popd
+
+pushd app-personal-agent/
+  git checkout sprout
+  nix-shell --run 'pnpm i' ../holo-rea/default.nix
+popd
+
+
+
+
+
+
+status_line "Finished installing. Continuing to build Holo-REA; if you don't need this please CTRL-C..."
+pushd holo-rea
+  nix-shell --run 'npm run build'
 popd
