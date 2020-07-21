@@ -37,6 +37,8 @@ status_line "Registering modules..."
 git submodule init
 git submodule update
 
+status_line "Setup wiki docs..."
+
 # All packages need to be put on master branch, as metadata in this repo is probably outdated.
 pushd ecosystem-wiki
   git checkout master
@@ -53,7 +55,7 @@ pushd holo-rea
 
   # :SHONK: ensure PNPM is installed in the nix env
   # :TODO: extend Holonix config correctly
-  nix-shell --run 'sudo npm i -g pnpm'
+  nix-shell --run 'NPM=$(which npm); sudo $NPM i -g pnpm'
 
   # setup dependencies
   nix-shell --run 'pnpm i'
