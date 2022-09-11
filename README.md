@@ -1,3 +1,5 @@
+# Warning: This project is highly outdated, and code should not be expected to run currently
+
 # ValueFlows project metarepo
 
 This repository exists to orchestrate setup of the full ValueFlows stack, including (for now) a Holochain backend.
